@@ -15,8 +15,19 @@ authRouter.get('/login', (req, res) => {
 authRouter.post('/login', (req, res) => {
   const login = req.body["login"];
   const password = req.body["password"];
+
+  // check the user and password exist
+
+  if(login && password) {
+    res
+      .status(200)
+      .send({
+        userId: 'id',
+        token: 'token'
+      })
+  }
   
-  res.send(loginUser(login, password));
+  res.status(400).send("Bad request");
 })
 
 authRouter.get('/register', (req, res) => {
