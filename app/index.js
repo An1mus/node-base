@@ -1,17 +1,29 @@
 import express from 'express';
+import mongoose from "mongoose";
 
 import { authRouter } from './modules/auth/router.js';
 
 const app = express();
 
-app.use(express.json());
+mongoose
+  .connect(process.env.DB_URL)
+  .then(() => {
+    console.log('DB connected');
 
-app.get('/', (req, res) => {
-  res.send('app is running');
+    app.listen(process.env.PORT, () => {
+      console.log(`App is running on port ${process.env.PORT}`)
+    })
+
+    app.use(express.json());
+
+    app.get('/', (req, res) => {
+      res.send('app is running');
+    })
+
+    app.use('/auth', authRouter);
+})
+.catch((e) => {
+  console.log("Connection error");
+  console.log(e);
 })
 
-app.use('/auth', authRouter);
-
-app.listen(process.env.PORT, () => {
-  console.log(`App is running on port ${process.env.PORT}`)
-})

@@ -1,0 +1,11 @@
+[ 
+  {
+    "username": "adminuser",
+    "email": "admin@example.com",
+    "firstName": "Admin",
+    "lastName": "User",
+    "isActive": true,
+    "roles": ["user", "admin"],
+    "createdAt": { "$date": "2024-03-10T14:45:00Z" }
+  }
+]

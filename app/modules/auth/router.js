@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { registerUser, loginUser } from './service.js';
+import { loginUser, registerUser } from '../user/service.js';
 
 const authRouter = express.Router();
 
@@ -12,33 +12,41 @@ authRouter.get('/login', (req, res) => {
   res.send("Auth route");
 })
 
-authRouter.post('/login', (req, res) => {
+authRouter.post('/login', async (req, res) => {
   const login = req.body["login"];
   const password = req.body["password"];
 
-  // check the user and password exist
+  try {
+    const user = await loginUser(login, password);
 
-  if(login && password) {
-    res
-      .status(200)
-      .send({
-        userId: 'id',
-        token: 'token'
-      })
+    if(user) {
+      res
+        .status(200)
+        .send(user)
+    } else {
+      res.status(400).send("Bad request");
+    }
+  } catch (e) {
+    res.status(401).send("Unauthorised");
   }
-  
-  res.status(400).send("Bad request");
 })
 
 authRouter.get('/register', (req, res) => {
   res.send("Register route");
 })
 
-authRouter.post('/register', (req, res) => {
+authRouter.post('/register', async (req, res) => {
   const login = req.body["login"];
   const password = req.body["password"];
   
-  res.send(registerUser(login, password));
+  try {
+    const result = await registerUser(login, password);
+    res.status(200).send(result);
+  } catch(e) {
+    console.log(e);
+    res.status(400).send("Bad request");
+  }
+  
 })
 
 export {
