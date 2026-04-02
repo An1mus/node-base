@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from "mongoose";
 
 import { authRouter } from './modules/auth/router.js';
+import { restaurantsRotuer } from './modules/restaurants/router.js';
 
 const app = express();
 
@@ -21,6 +22,7 @@ mongoose
     })
 
     app.use('/auth', authRouter);
+    app.use('/restaurants', restaurantsRotuer);
 })
 .catch((e) => {
   console.log("Connection error");
