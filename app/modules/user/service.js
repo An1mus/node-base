@@ -1,4 +1,4 @@
-import { UserModel as User } from "../db/user.js";
+import { UserModel as User } from "../auth/userSchema.js";
 
 const registerUser = async (login, password) => {
   const existingUser = await User.findOne({username: login});
