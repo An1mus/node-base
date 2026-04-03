@@ -2,7 +2,7 @@ import { Schema, Model } from "mongoose";
 
 const DishSchema = new Schema({
   name: String,
-  price: Float32Array
+  price: Number
 });
 
 const RestaurantSchema = new Schema({
