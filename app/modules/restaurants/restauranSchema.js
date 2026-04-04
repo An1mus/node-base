@@ -1,28 +1,27 @@
-import { Schema, Model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const DishSchema = new Schema({
-  name: String,
-  price: Number
+  "name": String,
+  "price": Number
 });
 
 const ReviewSchema = new Schema({
-  user: String,
-  rating: Number,
-  comment: String
+  "user": String,
+  "rating": Number,
+  "comment": String
 });
-
 
 const RestaurantSchema = new Schema({
-  name: {type: String, required: true},
-  address: {type: String, required: true},
-  updated: {type: Date, default: Date.now},
-  foodTypes: [String],
-  dishes: [DishSchema],
-  reviews: [ReviewSchema],
-  sits: Number,
+  "name": {type: String, required: true},
+  "address": {type: String, required: true},
+  "updated": {type: Date, default: Date.now},
+  "foodTypes": [String],
+  "dishes": [DishSchema],
+  "reviews": [ReviewSchema],
+  "sits": Number,
 });
 
 
-const UserModel = new Model("Restaurnat", RestaurantSchema, "restaurant");
+const RestaurantModel = new mongoose.model("restaurant", RestaurantSchema, "restaurant");
 
-export {UserModel}
+export {RestaurantModel}
