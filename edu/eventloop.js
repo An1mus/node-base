@@ -1,39 +1,38 @@
 import fs from 'fs';
 
-console.log('1. Synchronous: Script Start');
+console.log('1');
 
 setTimeout(() => {
-  console.log('5. Timer: setTimeout (0ms)');
+  console.log('2');
 }, 0);
 
 const promise = new Promise((resolve, reject) => {
-  console.log('Promise');
+  console.log('3');
 
   resolve();
 })
 
 fs.readFile("file.txt", () => {
-  console.log('8. I/O: File Read Callback');
+  console.log('4');
   
-  // Inside an I/O callback, setImmediate always runs before setTimeout
-  setImmediate(() => console.log('10. Check: setImmediate (inside I/O)'));
-  setTimeout(() => console.log('11. Timer: setTimeout (inside I/O)'), 0);
+  setImmediate(() => console.log('5'));
+  setTimeout(() => console.log('6'), 0);
 });
 
 setImmediate(() => {
-  console.log('7. Check: setImmediate');
+  console.log('7');
 });
 
 promise.then(() => {
-  console.log("Resolve")
+  console.log("8")
 })
 
 Promise.resolve().then(() => {
-  console.log('4. Microtask: Promise.then');
+  console.log('9');
 });
 
 process.nextTick(() => {
-  console.log('3. Microtask: process.nextTick');
+  console.log('10');
 });
 
-console.log('2. Synchronous: Script End');
+console.log('11');
